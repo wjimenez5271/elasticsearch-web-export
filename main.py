@@ -26,6 +26,8 @@ def do_query(start_time, end_time, query, es_host, output_file='/tmp/es-output.t
     :param output_file: tmp location for stash-query to write output to. We'll read the data from this location
     :return: str. results of query
     """
+    cmd ="touch {0}".format(output_file)
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, shell=True)
     cmd = 'stash-query --connect_host {0} -s {1} -e {2} -q {3} -w {4}'.format(es_host, start_time,
                                                                               end_time, query, output_file)
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, shell=True)
